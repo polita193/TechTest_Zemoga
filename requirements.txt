@@ -1,0 +1,3 @@
+selenium>=3.141,<3.142
+behave==1.2.6
+PyHamcrest==1.8.3
