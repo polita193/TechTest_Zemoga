@@ -1,6 +1,10 @@
 from behave import *
+
+from pages import itinerary_page
 from pages.home_page import HomePage
 from hamcrest import assert_that
+
+from pages.itinerary_page import ItineraryPage
 
 CARNIVAL_URL = 'https://www.carnival.com/'
 
@@ -12,7 +16,7 @@ def step_impl(context):
 
 
 @step('I search a cruise to "{sail_to}" with a duration of "{duration}"')
-@step('The results of a cruise search to {sail_to} with {duration} duration are shown')
+@step('The results of a cruise search to "{sail_to}" with "{duration}" duration are shown')
 def step_impl(context, sail_to, duration):
     page = HomePage(context)
     page.search_cruise(sail_to, duration)
@@ -30,3 +34,20 @@ def step_impl(context):
     assert_that(page.check_filter_by_price(), "The filter by price isn't displayed")
 
 
+@step('I select a sail from the results')
+def step_impl(context):
+    page = HomePage(context)
+    page.select_an_item()
+    page = ItineraryPage(context)
+
+
+@step('the itinerary by day is displayed')
+def step_impl(context):
+    page = ItineraryPage(context)
+    assert_that(page.is_itinerary_by_day_displayed(), "Itineraries by days isn't displayed")
+
+
+@step('the book now button is displayed')
+def step_impl(context):
+    page = ItineraryPage(context)
+    assert_that(page.is_book_now_button_displayed(), "Book now button isn't displayed")

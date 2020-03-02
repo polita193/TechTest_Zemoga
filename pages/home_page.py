@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from pages.page import Page
+from pages.itinerary_page import ItineraryPage
 
 
 class HomePage(Page):
@@ -13,8 +14,8 @@ class HomePage(Page):
     _options_list = (By.CLASS_NAME, "cdc-filter-button")
     _filter_by_price = (By.CLASS_NAME, "sfn-nav__item-pricing")
     _slider = (By.CSS_SELECTOR, ".filter-price .sfp-slider")
-    _result_grid =(By.CLASS_NAME, "ccs-search-results")
-    _results_grid_items = (By.CLASS_NAME, "vrg-result-item")
+    _result_grid = (By.CLASS_NAME, "ccs-search-results")
+    _results_grid_items = (By.CLASS_NAME, "vrg-search-unit")
 
     def __init__(self, context):
         Page.__init__(self, context)
@@ -39,3 +40,6 @@ class HomePage(Page):
             self.find_element(self._close_ad).click()
         if self.is_element_displayed(self._popup_bar):
             self.find_element(self._close_popup_bar).click()
+
+    def select_an_item(self):
+        self.get_elements_list_by_selector(self._results_grid_items)[0].click()
